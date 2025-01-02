@@ -82,6 +82,6 @@ public class TodoService {
 
     public Todo findById(long todoId) {
         return todoRepository.findById(todoId)
-                .orElseThrow(() -> new InvalidRequestException("해당하는 일정을 찾을 수 없습니다."));
+                .orElseThrow(() -> new InvalidRequestException("Todo not found"));
     }
 }
