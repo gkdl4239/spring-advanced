@@ -20,7 +20,7 @@ public class UserService {
 
     public UserResponse getUser(long userId) {
         User user = findById(userId);
-        return new UserResponse(user.getId(), user.getEmail());
+        return UserResponse.fromEntity(user);
     }
 
     @Transactional
