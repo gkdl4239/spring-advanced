@@ -80,4 +80,9 @@ public class TodoService {
                 todo.getModifiedAt()
         );
     }
+
+    public Todo findById(long todoId) {
+        return todoRepository.findById(todoId)
+                .orElseThrow(() -> new InvalidRequestException("해당하는 일정이 없습니다."));
+    }
 }
