@@ -54,25 +54,17 @@ public class ManagerService {
     }
 
     public List<ManagerResponse> getManagers(long todoId) {
-        Todo todo = todoService.findById(todoId);
 
+        Todo todo = todoService.findById(todoId);
         List<Manager> managerList = managerRepository.findAllByTodoId(todo.getId());
 
-        List<ManagerResponse> dtoList = new ArrayList<>();
-        for (Manager manager : managerList) {
-            User user = manager.getUser();
-            dtoList.add(new ManagerResponse(
-                    manager.getId(),
-                    UserResponse.fromEntity(user))
-            );
-        }
-        return dtoList;
+        return ManagerResponse.getResponseList(managerList);
     }
 
     @Transactional
     public void deleteManager(long userId, long todoId, long managerId) {
-        User user = userService.findById(userId);
 
+        User user = userService.findById(userId);
         Todo todo = todoService.findById(todoId);
 
         if (todo.getUser() == null || !ObjectUtils.nullSafeEquals(user.getId(), todo.getUser().getId())) {
