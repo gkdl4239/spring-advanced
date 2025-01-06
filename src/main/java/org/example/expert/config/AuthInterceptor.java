@@ -3,6 +3,7 @@ package org.example.expert.config;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.example.expert.domain.user.enums.UserRole;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,10 +14,10 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+@Slf4j
 @Component
 public class AuthInterceptor implements HandlerInterceptor {
 
-    private static final Logger logger = LoggerFactory.getLogger(AuthInterceptor.class);
     private final JwtUtil jwtUtil;
 
     public AuthInterceptor(JwtUtil jwtUtil) {
@@ -47,7 +48,7 @@ public class AuthInterceptor implements HandlerInterceptor {
             }
             String time = LocalDateTime.now()
                     .format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-            logger.info("요청 시각: {} | 요청 주소 {}", time, url);
+            log.info("권한 확인 성공 시각: {} | 요청 주소 {}", time, url);
             return true;
         }
         catch (Exception e) {
